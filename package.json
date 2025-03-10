@@ -17,6 +17,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "autoprefixer": "^10.4.20"
+    "autoprefixer": "^10.4.20",
+    "typescript": "5.8.2"
   }
 }
