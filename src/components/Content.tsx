@@ -6,6 +6,18 @@ interface ContentProps {
   darkMode: boolean;
 }
 
+interface DictionaryEntry {
+  word: string;
+  phonetic?: string;
+  phonetics?: { text?: string; audio?: string }[];
+  meanings: {
+    partOfSpeech: string;
+    definitions: { definition: string }[];
+    synonyms?: string[];
+  }[];
+  sourceUrls: string[];
+}
+
 const Content: React.FC<ContentProps> = ({ darkMode }) => {
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<DictionaryEntry | null>(null);
