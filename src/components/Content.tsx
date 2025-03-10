@@ -117,7 +117,7 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
             )}
           </div>
           <ul className="list-disc mt-4">
-            {result.meanings.map((meaning, index) => (
+            {result.meanings?.map((meaning, index) => (
               <p key={index}>
                 <div className="relative flex py-4 items-center gap-2">
                   <span>
@@ -132,7 +132,7 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
                   <div className="flex-grow border-t border-gray-200"></div>
                 </div>
                 <span className="text-gray-400">Meaning</span>
-                {meaning.definitions.map((definition, index) => (
+                {meaning.definitions?.map((definition, index) => (
                   <>
                     <li
                       key={index}
@@ -145,11 +145,12 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
                     </li>
                   </>
                 ))}
-                {meaning.synonyms.map((syn, index) => (
+                {meaning.synonyms?.map((syn, index) => (
                   <div className="flex mt-4 gap-4">
                     <span className="text-gray-400">Synonyms </span>
                     <p key={index} className="font-bold text-[#9F49DE]">
-                      {" "}{syn}{" "}
+                      {" "}
+                      {syn}{" "}
                     </p>
                   </div>
                 ))}
@@ -159,7 +160,7 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
           <div className="flex-grow border-t border-gray-200 my-4"></div>
           <div className="flex gap-2">
             <span className="text-gray-400">Surce: </span>
-            <Link href={result.sourceUrls}>{result.sourceUrls}</Link>
+            <Link href={result.sourceUrls[0]}>{result.sourceUrls[0]}</Link>
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
