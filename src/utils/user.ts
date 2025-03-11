@@ -5,8 +5,8 @@ export const getUserId = () => {
   let userId = Cookies.get("userId");
 
   if (!userId) {
-    userId = uuidv4(); // Genera un ID único
-    Cookies.set("userId", userId, { expires: 365 }); // Guarda la cookie por 1 año
+    userId = uuidv4();
+    Cookies.set("userId", userId, { expires: 365 });
   }
 
   return userId;
