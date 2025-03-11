@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import {getUserId} from '@/utils/user';
+import { useSearchHistoryStore } from "@/store/useSearchHistoryStore";
+import UserHistory from "./UserHistory";
 
 interface ContentProps {
   darkMode: boolean;
@@ -19,6 +22,7 @@ interface DictionaryEntry {
 }
 
 const Content: React.FC<ContentProps> = ({ darkMode }) => {
+  const user = getUserId();
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<DictionaryEntry | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -35,6 +39,8 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
       if (!response.ok) throw new Error("Word not found");
       const data: DictionaryEntry[] = await response.json();
       setResult(data[0]);
+      // Guardar búsqueda en el historial con fecha y hora
+      useSearchHistoryStore.getState().addSearch(user, query);
     } catch (e) {
       setError((e as Error).message);
       console.error(e);
@@ -179,6 +185,10 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
               </svg>
             </div>
           </div>
+
+          {/* <div>
+            <UserHistory />
+          </div> */}
         </div>
       )}
     </div>

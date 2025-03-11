@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import UserHistory from "./UserHistory";
+import { useSearchHistoryStore } from "@/store/useSearchHistoryStore";
+import { getUserId } from "@/utils/user";
 
 interface NavbarProps {
   darkMode: boolean;
@@ -8,7 +11,9 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
+  const user = getUserId();
   const [font, setFont] = useState<string>('serif');
+  const [historyBar, setHistoryBar] = useState<boolean>(false);
 
   const handleFontChange = (event: React.ChangeEvent<HTMLSelectElement>) =>{
     setFont(event.target.value);
@@ -46,6 +51,82 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <div className="relative ml-4">
+              <button
+                type="button"
+                className="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900"
+                aria-expanded="false"
+                onClick={() => setHistoryBar(!historyBar)}
+              >
+                <span>History</span>
+                <svg
+                  className="size-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  data-slot="icon"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {historyBar && (
+              <div className="absolute left-[47rem] z-10 top-[3.5rem] flex w-screen max-w-max -translate-x-1/2 px-4">
+                <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm/6 ring-1 shadow-lg ring-gray-900/5">
+                  <div className="p-4">
+                    <UserHistory />
+                  </div>
+                  <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+                    <button
+                      className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
+                      onClick={() =>
+                        useSearchHistoryStore.getState().clearHistory(user)
+                      }
+                    >
+                      <svg
+                        className="size-5 flex-none text-gray-400"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      Clear History
+                    </button>
+                    <button
+                      className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-100"
+                      onClick={() => setHistoryBar(!historyBar)}
+                    >
+                      <svg
+                        className="size-5 flex-none text-gray-400"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        data-slot="icon"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="relative ml-4">
               <form className="mx-auto">
                 <label htmlFor="underline_select" className="sr-only">
