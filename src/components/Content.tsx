@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import {getUserId} from '@/utils/user';
+import { getUserId } from "@/utils/user";
 import { useSearchHistoryStore } from "@/store/useSearchHistoryStore";
 import UserHistory from "./UserHistory";
 
@@ -25,6 +25,7 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
   const user = getUserId();
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<DictionaryEntry | null>(null);
+  console.log("result -->", result);
   const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (): Promise<void> => {
@@ -100,27 +101,31 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
               </h2>
               <p className="italic text-[#9F49DE]">{result.phonetic}</p>
             </div>
-            {result.phonetics && (
-              <>
-                <audio
-                  id="audioPlayer"
-                  src={result.phonetics[2]?.audio || ""}
-                ></audio>
-                <button
-                  className="w-14 h-14 px-4 py-2 bg-purple-200 text-white rounded-full focus:border-4 border-gray-300"
-                  onMouseDown={handlePlay}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path fill="#9C48DD" d="M8 5.14v14l11-7z" />
-                  </svg>
-                </button>
-              </>
-            )}
+            {result.phonetics &&
+              (() => {
+                const phoneticWithAudio = result.phonetics.find((p) => p.audio);
+                return phoneticWithAudio ? (
+                  <>
+                    <audio
+                      id="audioPlayer"
+                      src={phoneticWithAudio.audio}
+                    ></audio>
+                    <button
+                      className="w-14 h-14 px-4 py-2 bg-purple-200 text-white rounded-full focus:border-4 border-gray-300"
+                      onMouseDown={handlePlay}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path fill="#9C48DD" d="M8 5.14v14l11-7z" />
+                      </svg>
+                    </button>
+                  </>
+                ) : null;
+              })()}
           </div>
           <ul className="list-disc mt-4">
             {result.meanings?.map((meaning, index) => (
@@ -151,15 +156,15 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
                     </li>
                   </>
                 ))}
-                {meaning.synonyms?.map((syn, index) => (
-                  <div className="flex mt-4 gap-4">
-                    <span className="text-gray-400">Synonyms </span>
+                <div className="flex mt-4 gap-4">
+                  <span className="text-gray-400">Synonyms </span>
+                  {meaning.synonyms?.map((syn, index) => (
                     <p key={index} className="font-bold text-[#9F49DE]">
                       {" "}
                       {syn}{" "}
                     </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </p>
             ))}
           </ul>
@@ -185,10 +190,6 @@ const Content: React.FC<ContentProps> = ({ darkMode }) => {
               </svg>
             </div>
           </div>
-
-          {/* <div>
-            <UserHistory />
-          </div> */}
         </div>
       )}
     </div>
