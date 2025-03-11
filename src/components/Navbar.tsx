@@ -54,7 +54,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
             <div className="relative ml-4">
               <button
                 type="button"
-                className="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900"
+                className="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-500"
                 aria-expanded="false"
                 onClick={() => setHistoryBar(!historyBar)}
               >
@@ -76,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
             </div>
 
             {historyBar && (
-              <div className="absolute left-[47rem] z-10 top-[3.5rem] flex w-screen max-w-max -translate-x-1/2 px-4">
+              <div className="absolute left-[7rem] top-[4rem] md:left-[47rem] md:top-[3.5rem] flex w-screen max-w-max -translate-x-1/2 px-4 z-10">
                 <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm/6 ring-1 shadow-lg ring-gray-900/5">
                   <div className="p-4">
                     <UserHistory />
@@ -89,17 +89,20 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
                       }
                     >
                       <svg
-                        className="size-5 flex-none text-gray-400"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        data-slot="icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                       >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z"
-                          clip-rule="evenodd"
-                        />
+                        <g fill="none" stroke="#8a8a8a" stroke-width="1">
+                          <path d="M6.6 6.91L8.4 20h7.2l1.8-13.09" />
+                          <path stroke-linecap="round" d="M6 6.667h12" />
+                          <path d="M14.571 7V6a2 2 0 0 0-2-2H11.43a2 2 0 0 0-2 2v1" />
+                          <path
+                            stroke-linecap="round"
+                            d="M11.98 10.546v5.819m-2.38-5.82l.6 5.82m4.2-5.819l-.6 5.819"
+                          />
+                        </g>
                       </svg>
                       Clear History
                     </button>
@@ -108,16 +111,15 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
                       onClick={() => setHistoryBar(!historyBar)}
                     >
                       <svg
-                        className="size-5 flex-none text-gray-400"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        data-slot="icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 1024 1024"
                       >
                         <path
+                          fill="#8a8a8a"
                           fill-rule="evenodd"
-                          d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z"
-                          clip-rule="evenodd"
+                          d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960S64 759.4 64 512S264.6 64 512 64m0 76c-205.4 0-372 166.6-372 372s166.6 372 372 372s372-166.6 372-372s-166.6-372-372-372m128.013 198.826c.023.007.042.018.083.059l45.02 45.019c.04.04.05.06.058.083a.12.12 0 0 1 0 .07c-.007.022-.018.041-.059.082L557.254 512l127.861 127.862a.3.3 0 0 1 .05.06l.009.023a.12.12 0 0 1 0 .07c-.007.022-.018.041-.059.082l-45.019 45.02c-.04.04-.06.05-.083.058a.12.12 0 0 1-.07 0c-.022-.007-.041-.018-.082-.059L512 557.254L384.14 685.115c-.042.041-.06.052-.084.059a.12.12 0 0 1-.07 0c-.022-.007-.041-.018-.082-.059l-45.02-45.019a.2.2 0 0 1-.058-.083a.12.12 0 0 1 0-.07c.007-.022.018-.041.059-.082L466.745 512l-127.86-127.86a.3.3 0 0 1-.05-.061l-.009-.023a.12.12 0 0 1 0-.07c.007-.022.018-.041.059-.082l45.019-45.02c.04-.04.06-.05.083-.058a.12.12 0 0 1 .07 0c.022.007.041.018.082.059L512 466.745l127.862-127.86c.04-.041.06-.052.083-.059a.12.12 0 0 1 .07 0Z"
                         />
                       </svg>
                       Close
@@ -134,7 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode }) => {
                 </label>
                 <select
                   id="underline_select"
-                  className="block py-2.5 px-0 w-full font-bold text-sm text-gray-500 bg-transparent border-0 border-r-2 border-gray-100 appearance-none  focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                  className="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-500 bg-transparent"
                   value={font}
                   onChange={handleFontChange}
                 >

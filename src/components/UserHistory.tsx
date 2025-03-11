@@ -16,9 +16,10 @@ const UserHistory: React.FC = () => {
         {history.map(({ word, timestamp }, index) => (
           <li
             key={index}
-            className="text-gray-600 group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
+            className="text-gray-600 group relative flex gap-x-24 md:gap-x-44 items-end rounded-lg p-4 hover:bg-gray-50"
           >
-            <span className="font-semibold">{word}</span> - {timestamp}
+            <span className="font-semibold">{word}</span>
+            <span>{timestamp}</span>
           </li>
         ))}
       </ul>
